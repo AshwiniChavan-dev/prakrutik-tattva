@@ -48,8 +48,8 @@ app.get("/api/health", (req, res) => {
 });
 
 // Single Page Application (SPA) routing fallback
-// Ensures direct links (like /shop, /about, /contact) work properly
-app.get("*", (req, res) => {
+// Uses app.use catch-all middleware for 100% compatibility with Express 5 and Express 4
+app.use((req, res) => {
   const indexPath = path.join(DIST_DIR, "index.html");
   if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
